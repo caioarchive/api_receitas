@@ -236,76 +236,74 @@ export const cadastrarCapaReceita = async (request, response) => {
 
 
 
-// export const buscarImagemCapa = async (request, response) => {
-//   const { filename } = request.params;
+export const buscarImagemCapa = async (request, response) => {
+  const { filename } = request.params;
 
-//   if (!filename) {
-//     response.status(400).json({ mensagem: "filename é obrigatório" });
-//     return;
-//   }
+  if (!filename) {
+    response.status(400).json({ mensagem: "Nome do arquivo é obrigatório" });
+    return;
+  }
 
-//   try {
-//     const receitas = await receitasModel.findOne({
-//       where: {
-//         imagem_capa: filename,
-//       },
-//     });
+  try {
+    const receitas = await receitasModel.findOne({
+      where: {
+        imagem_capa: filename,
+      },
+    });
 
-//     if (!receitas) {
-//       response.status(404).json({ mensagem: "Capa da receita não encontrada" });
-//       return;
-//     }
+    if (!receitas) {
+      response.status(404).json({ mensagem: "Capa da receita não encontrada" });
+      return;
+    }
 
-//     const caminhoDaImagem = path.join(
-//       __dirname,
-//       "../../public/receitas/",
-//       filename
-//     );
+    const caminhoDaImagem = path.join(
+      __dirname,
+      "../../public/receitas/",
+      filename
+    );
 
-//     console.log(caminhoDaImagem);
 
-//     response.status(200).sendFile(caminhoDaImagem);
-//   } catch (error) {
-//     console.log(error);
-//     response
-//       .status(500)
-//       .json({ mensagem: "Erro interno ao buscar capa da receita" });
-//   }
-// };
+    response.status(200).sendFile(caminhoDaImagem);
+  } catch (error) {
+    console.log(error);
+    response
+      .status(500)
+      .json({ mensagem: "Erro interno ao buscar capa da receita" });
+  }
+};
 
-// export const deletarImagemCapa = async (request, response) => {
-//   const { id } = request.params;
+export const deletarImagemCapa = async (request, response) => {
+  const { id } = request.params;
 
-//   if (!id) {
-//     response.status(400).json({ mensagem: "ID é obrigatório" })
-//     return
-//   }
+  if (!id) {
+    response.status(400).json({ mensagem: "ID da imagem é obrigatório" })
+    return
+  }
 
-//   try {
-//     const receitas = await receitasModel.findByPk(id)
+  try {
+    const receitas = await receitasModel.findByPk(id)
 
-//     if (!receitas) {
-//       response.status(404).json({ mensagem: "Receita não encontrado" })
-//       return
-//     }
+    if (!receitas) {
+      response.status(404).json({ mensagem: "Receita não encontrado" })
+      return
+    }
 
-//     const encontrarArquivo = path.join(__dirname, '../../public/receitas', receitas.imagem_capa)
+    const encontrarArquivo = path.join(__dirname, '../../public/receitas', receitas.imagem_capa)
 
-//     //Apaguei o arquivo do PC/pasta public
-//     if (existsSync(encontrarArquivo)) {
-//       unlinkSync(encontrarArquivo)
-//     }
+    if (existsSync(encontrarArquivo)) {
+      unlinkSync(encontrarArquivo)
+    }
 
-//     //modificar o nome do arquivo no banco de dados
-//     receitas.imagem_capa = 'fileName.png'
-//     receitas.imagem_url = 'caminhoDaImagem'
+    receitas.imagem_capa = 'fileName.png'
+    receitas.imagem_url = 'caminhoDaImagem'
 
-//     await receitas.save()
+    await receitas.save()
 
-//     response.status(200).json({ mensagem: "A capa foi removida" })
+    response.status(200).json({ mensagem: "Capa removida com sucesso" })
 
-//   } catch (error) {
-//     response.status(500).json({ mensagem: "Erro inteno" })
-//   }
+  } catch (error) {
+    console.log(error)
+    response.status(500).json({ mensagem: "Erro interno do servidor ao tentar apagar a capa!" })
+  }
 
-// };
+};

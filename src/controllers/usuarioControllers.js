@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 export const cadastrarUsuario = async (request, response) => {
   const { nome, email, senha, telefone, endereco, tipoUsuario, ativo } = request.body;
 
-  // Validação dos campos obrigatórios
+
   if (!nome) {
     return response.status(400).json({ mensagem: "O campo nome não pode ser nulo" });
   }
@@ -73,8 +73,10 @@ export const atualizarUsuario = async (request, response) => {
       atualizarUsuario.endereco = endereco;
       atualizarUsuario.tipoUsuario = tipoUsuario;
       atualizarUsuario.ativo = ativo;
+      
       await atualizarUsuario.save();
-      console.log('======>', atualizarUsuario)
+
+     
       response.status(200).json(atualizarUsuario);
 
     } else {
@@ -131,7 +133,7 @@ export const login = async (request, response) => {
   try {
 
     const usuario = await usuarioModel.findOne({ where: { email } })
-    if (usuario) console.log("Senha do DB:", usuario.senha);
+    if (usuario) console.log("Senha do Banco de Dados:", usuario.senha);
 
     if (!usuario) {
       return response.status(401).json({ mensagem: "Usuário ou senha inválidos" });
@@ -161,7 +163,7 @@ export const logout = (req, res) => {
   const token = authHeader?.split(" ")[1];
 
   if (!token) {
-    return res.status(400).json({ mensagem: "Token não fornecido" });
+    return res.status(400).json({ mensagem: "Token não inserido!" });
   }
 
   try {
