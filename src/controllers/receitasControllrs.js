@@ -1,5 +1,5 @@
 import { response } from "express"
-import { chefeModel, receitasModel } from "../models/association.js"
+import { chefModel, receitasModel } from "../models/association.js"
 
 
 export const criarReceita = async (request, response) => {
@@ -35,7 +35,7 @@ export const criarReceita = async (request, response) => {
   }
   try {
 
-    const chefsEncontrados = await chefeModel.findAll({
+    const chefsEncontrados = await chefModel.findAll({
       where: {
         id: chefs
       }
@@ -61,7 +61,7 @@ export const criarReceita = async (request, response) => {
     const receitaComChefs = await receitasModel.findByPk(receita.id, {
       attributes: { exclude: ["created_at", "updated_at"] },
       include: {
-        model: chefeModel,
+        model: chefModel,
         attributes: { exclude: ["created_at", "updated_at"] },
         through: { attributes: [] }
       }
@@ -85,7 +85,7 @@ export const listarReceitas = async (request, response) => {
   try {
     const receitas = await receitasModel.findAndCountAll({
       include: {
-        model: chefeModel,
+        model: chefModel,
         attributes: ['id', 'nome'],
         through: { attributes: [] },
         where: chefSelecionado,
@@ -137,7 +137,7 @@ export const buscarReceita = async (request, response) => {
     const receita = await receitasModel.findByPk(id, {
       attributes: { exclude: ["created_at", "updated_at"] },
       include: {
-        model: chefeModel,
+        model: chefModel,
         through: { attributes: [] },
         attributes: { exclude: ["created_at", "updated_at"] },
       },
@@ -230,7 +230,7 @@ export const cadastrarCapaReceita = async (request, response) => {
     response.status(200).json({ mensagem: "Capa cadastrada", filename, path })
   } catch (error) {
     console.log(error)
-    response.status(500).json({ mensagem: "Erro interno ao cadastrar capa" })
+    response.status(500).json({ mensagem: "Erro interno do servidor ao cadastrar capa" })
   }
 }
 

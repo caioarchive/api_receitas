@@ -5,7 +5,6 @@ import { fileURLToPath } from "node:url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-//ONDE eu vou guardar as imagens
 export const imageStorage = multer.diskStorage({
   destination: (request, file, cb) => {
     let folder = "";

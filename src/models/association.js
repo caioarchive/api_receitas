@@ -1,17 +1,17 @@
-import chefeModel from "./chefeModel.js"
+import chefModel from "./chefModel.js"
 import receitasModel from "./receitasModel.js"
 
 
-chefeModel.belongsToMany(receitasModel, {
+chefModel.belongsToMany(receitasModel, {
     through: 'autores_receitas',
     foreignKey: 'autor_id',
     otherKey: 'receita_id'
 })
 
-receitasModel.belongsToMany(chefeModel, {
+receitasModel.belongsToMany(chefModel, {
     through: 'autores_receitas',
     foreignKey: 'receita_id',
     otherKey: 'autor_id'
 })
 
-export { chefeModel, receitasModel }
+export { chefModel, receitasModel }

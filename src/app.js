@@ -9,7 +9,7 @@ import { fileURLToPath } from "node:url";
 import './models/association.js'
 
 // ROTAS
-import chefeRouter from "./routes/chefeRouter.js"
+import chefRouter from "./routes/chefRouter.js"
 import receitasRouter from "./routes/receitasRouter.js";
 import usuarioRouter from "./routes/usuarioRouter.js"
 import favoritosRouter from "./routes/favoritosRouter.js"
@@ -20,17 +20,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-conn
-    .sync()
+conn.sync()
     .then(() => {
-        console.log("Banco de dados conectado 🫥");
+        console.log("Banco de dados conectado!");
     })
     .catch((error) => console.log(error));
 
     app.use(express.json())
-    app.use(express.urlencoded({extended: true})) //ACEITA receber de Imagens
+    app.use(express.urlencoded({extended: true})) 
 
-    // Qual pasta que vou armazenar
+
 app.use('/public', express.static(path.join(__dirname, '../public')))
 
 
@@ -40,7 +39,7 @@ app.use(cors({
     credentials: true,
 }))
 
-app.use("/api/chefs", chefeRouter)
+app.use("/api/chefs", chefRouter)
 app.use("/api/receitas", receitasRouter)
 app.use("/api/usuarios/perfil", usuarioRouter)
 app.use("/api/favoritos", favoritosRouter)

@@ -1,7 +1,5 @@
-import favoritosReceitasModel from "../models/favoritosReceitasModel.js";
+import ReceitasFavoritasModel from "../models/ReceitasFavoritasModel.js";
 
-
-// Adicionar receita aos favoritos
 export const adicionarFavorito = async (request, response) => {
     const { usuarioId, receitaId, categoria, observacoes, prioridade } = request.body;
 
@@ -23,7 +21,7 @@ export const adicionarFavorito = async (request, response) => {
     };
 
     try {
-        const novoFavorito = await favoritosReceitasModel.create(favorito);
+        const novoFavorito = await ReceitasFavoritasModel.create(favorito);
         response.status(201).json({ mensagem: "Receita adicionada aos favoritos com sucesso!", novoFavorito });
     } catch (error) {
         console.log(error);

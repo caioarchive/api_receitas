@@ -1,4 +1,4 @@
-import chefeModel from "../models/chefeModel.js"
+import chefeModel from "../models/chefModel.js"
 
 
 export const cadastrarChefes = async (request, response) => {
