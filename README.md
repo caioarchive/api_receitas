@@ -30,5 +30,5 @@ API RESTful para gerenciamento de receitas culinárias, chefs, usuários e inter
 
 ### 1. Clone o repositório  
 ```bash
-git clone https://github.com/seu-usuario/api-receitas.git
+git clone https://github.com/caioarchive/api_receitas.git
 cd api-receitas
